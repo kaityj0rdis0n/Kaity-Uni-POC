@@ -26,8 +26,9 @@ The CLI collects event details from the user, normalizes the data, and prepares 
 git clone https://github.com/YourUsername/universe-ai-poc.git
 cd universe-ai-poc
 
+```
 
-2. Install dependencies:
+## 2. Install dependencies:
 
 npm install
 
@@ -48,6 +49,7 @@ Is this a single-night or a recurring event? Single
 What date is the event? (YYYY-MM-DD) 2025-04-15
 What is the event capacity? 20
 
+```
 Raw input:
 {
   name: "Gene's Borkday",
@@ -63,3 +65,31 @@ Normalized event object:
   startDate: "2025-04-15T00:00:00.000Z",
   capacity: 20
 }
+
+```
+## Next Steps
+
+Add validation for date and capacity input
+
+Extend CLI to include additional fields (location, ticket price, description)
+
+Connect to Universe GraphQL API to create draft events programmatically
+
+Transition CLI logic to a UI-based assistant in the future
+
+License
+
+ISC
+
+
+---
+
+You just need to:
+
+1. Save this as `README.md` in your project root  
+2. Stage, commit, and push it:
+
+```bash
+git add README.md
+git commit -m "Add README with CLI instructions"
+git push
