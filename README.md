@@ -77,6 +77,8 @@ Connect to Universe GraphQL API to create draft events programmatically
 
 Transition CLI logic to a UI-based assistant in the future
 
+LLM integration
+
 License
 
 ISC
