@@ -1,0 +1,5 @@
+node_modules/
+.env
+
+
+#this is a git ignore file. note_modules is "huge", .env contains secrets
