@@ -69,7 +69,7 @@ Normalized event object:
 ```
 ## Next Steps
 
-Add validation for date and capacity input
+Add validation for additional inputs
 
 Extend CLI to include additional fields (location, ticket price, description)
 
