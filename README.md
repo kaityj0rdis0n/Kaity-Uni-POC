@@ -62,18 +62,18 @@ What is the event capacity? 20
 ```
 Raw input:
 {
-  name: "Gene's Borkday",
-  type: "single",
-  date: "2025-04-15",
-  capacity: "20"
+  name: 'Validator building day',
+  type: 'single',
+  date: '2026-02-02',
+  capacity: '1'
 }
 
 Normalized event object:
 {
-  name: "Gene's Borkday",
-  kind: "SINGLE_EVENT",
-  startDate: "2025-04-15T00:00:00.000Z",
-  capacity: 20
+  name: 'Validator building day',
+  kind: 'SINGLE_EVENT',
+  startDate: '2026-02-02T00:00:00.000Z',
+  capacity: 1
 }
 
 ```
