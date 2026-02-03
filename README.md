@@ -3,7 +3,7 @@
 This is a **proof-of-concept Command Line Interface (CLI)** for an AI-assisted event builder for Universe Clubs events.  
 The CLI collects event details from the user, normalizes the data, and prepares it for potential integration with the Universe API.
 
-## Features
+
 ## Features Implemented
 
 - Interactive CLI asking users for:
@@ -77,7 +77,7 @@ Normalized event object:
 }
 
 ```
-## Next Steps
+
 
 ## Next Steps
 
