@@ -4,14 +4,24 @@ This is a **proof-of-concept Command Line Interface (CLI)** for an AI-assisted e
 The CLI collects event details from the user, normalizes the data, and prepares it for potential integration with the Universe API.
 
 ## Features
+## Features Implemented
 
-- Multi-step interactive CLI for creating event details
-- Normalizes input data:
-  - Converts date to ISO format
-  - Converts capacity to number
-  - Determines event type (`SINGLE_EVENT` or `RECURRING_EVENT`)
-- Modular design for easy extension
-- Compatible with Node.js ES modules
+- Interactive CLI asking users for:
+  - Event name
+  - Event type (single-night or recurring)
+  - Event date (with format and future-date validation)
+  - Event capacity (positive integer validation)
+- Validators:
+  - `isRequired` → ensures input is not empty
+  - `isValidDate` → checks date format and future-datedness
+  - `isPositiveNumber` → checks capacity is a positive integer
+- Normalization:
+  - Transforms raw CLI input into a consistent format ready for API integration
+- Separation of concerns:
+  - `cli.js` handles flow
+  - `conversation.js` stores questions/fields
+  - `validate.js` contains validators
+  - `normalizeEvent.js` handles normalization
 
 ## Requirements
 
