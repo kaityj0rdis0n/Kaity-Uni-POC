@@ -79,13 +79,16 @@ Normalized event object:
 ```
 ## Next Steps
 
-Add validation for additional inputs
+## Next Steps
+
 
 Extend CLI to include additional fields (location, ticket price, description)
 
 Connect to Universe GraphQL API to create draft events programmatically
 
-Transition CLI logic to a UI-based assistant in the future
+Transition CLI logic to a UI-based assistant in the future (refactor to suport a web or chat based UI)
+error handling and edge cases
+unit tests
 
 LLM integration
 
