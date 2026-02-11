@@ -3,15 +3,25 @@
 This is a **proof-of-concept Command Line Interface (CLI)** for an AI-assisted event builder for Universe Clubs events.  
 The CLI collects event details from the user, normalizes the data, and prepares it for potential integration with the Universe API.
 
-## Features
 
-- Multi-step interactive CLI for creating event details
-- Normalizes input data:
-  - Converts date to ISO format
-  - Converts capacity to number
-  - Determines event type (`SINGLE_EVENT` or `RECURRING_EVENT`)
-- Modular design for easy extension
-- Compatible with Node.js ES modules
+## Features Implemented
+
+- Interactive CLI asking users for:
+  - Event name
+  - Event type (single-night or recurring)
+  - Event date (with format and future-date validation)
+  - Event capacity (positive integer validation)
+- Validators:
+  - `isRequired` → ensures input is not empty
+  - `isValidDate` → checks date format and future-datedness
+  - `isPositiveNumber` → checks capacity is a positive integer
+- Normalization:
+  - Transforms raw CLI input into a consistent format ready for API integration
+- Separation of concerns:
+  - `cli.js` handles flow
+  - `conversation.js` stores questions/fields
+  - `validate.js` contains validators
+  - `normalizeEvent.js` handles normalization
 
 ## Requirements
 
@@ -52,30 +62,33 @@ What is the event capacity? 20
 ```
 Raw input:
 {
-  name: "Gene's Borkday",
-  type: "single",
-  date: "2025-04-15",
-  capacity: "20"
+  name: 'Validator building day',
+  type: 'single',
+  date: '2026-02-02',
+  capacity: '1'
 }
 
 Normalized event object:
 {
-  name: "Gene's Borkday",
-  kind: "SINGLE_EVENT",
-  startDate: "2025-04-15T00:00:00.000Z",
-  capacity: 20
+  name: 'Validator building day',
+  kind: 'SINGLE_EVENT',
+  startDate: '2026-02-02T00:00:00.000Z',
+  capacity: 1
 }
 
 ```
+
+
 ## Next Steps
 
-Add validation for additional inputs
 
 Extend CLI to include additional fields (location, ticket price, description)
 
 Connect to Universe GraphQL API to create draft events programmatically
 
-Transition CLI logic to a UI-based assistant in the future
+Transition CLI logic to a UI-based assistant in the future (refactor to suport a web or chat based UI)
+error handling and edge cases
+unit tests
 
 LLM integration
 
