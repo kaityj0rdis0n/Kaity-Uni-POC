@@ -46,8 +46,8 @@ export const eventBuildConversationSteps = [
     question: "What is the event capacity?",
     validator: "capacity",
     errorMessage: "Capacity must be a positive number."
-  }
-  {
+  },
+{
     field: "description",
     question: "Provide a short description of the event:",
     validator: "required",
@@ -57,14 +57,26 @@ export const eventBuildConversationSteps = [
     field: "address",
     question: "Where is the event?",
     validator: "required",
-    errorMessage: "Must add an associated address to the event" //did not add required validator, thinking about when people have different things like popups etc
+    errorMessage: "Must add an associated address to the event" //did not add required validator,(also not in graphQL mandatory) thinking about when people have different things like popups etc
 },
 {
     field: "venueName",
-    question: "What is the venue name? (Optional)" //did not add required validator, thinking about when people have different things like popups etc
+    question: "What is the venue name? (Optional)" //did not add required validator(also not in graphhQL mandatory), thinking about when people have different things like popups etc
 },
 {
     field: "ageLimit",
     question: "Is there an age limit? (Optional, e.g. 18+, All Ages)" //free text input at this time
+},
+{
+    question: "Enter a latitude coordinate, must be between -90 and 90",
+    field: "latitude",
+    validator: "coordinate",
+    errorMessage: "Latitude must be a number between -90 and 90"
+},
+{
+    question: "Enter a latitude coordinate, must be between -180 and 180 :",
+    field: "longitude",
+    validator: "coordinate",
+    errorMessage: "Longitude must be a number between -180 and 180"
 }
-];
+]

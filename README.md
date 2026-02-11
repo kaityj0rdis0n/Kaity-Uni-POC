@@ -54,26 +54,42 @@ The raw input object
 The normalized event object
 
 **Example**
-What is the name of your event? Gene's Borkday
-Is this a single-night or a recurring event? Single
-What date is the event? (YYYY-MM-DD) 2025-04-15
-What is the event capacity? 20
+What is the name of your event? Lennon's best cuddle day
+Is this a single-night or a recurring event? single
+What date is the event? (YYYY-MM-DD) 2026-12-12
+What is the event capacity? 3
+Provide a short description of the event: Lennon loves cuddles, today is the best day ever because it's 12, 12
+Where is the event? 123 front st W
+What is the venue name? (Optional) 
+Is there an age limit? (Optional, e.g. 18+, All Ages) 
+Enter a latitude coordinate, must be between -90 and 90 -1
+Enter a latitude coordinate, must be between -180 and 180 : 1
 
-```
 Raw input:
 {
-  name: 'Validator building day',
+  name: "Lennon's best cuddle day",
   type: 'single',
-  date: '2026-02-02',
-  capacity: '1'
+  date: '2026-12-12',
+  capacity: '3',
+  description: "Lennon loves cuddles, today is the best day ever because it's 12, 12",
+  address: '123 front st W',
+  venueName: '',
+  ageLimit: '',
+  latitude: '-1',
+  longitude: '1'
 }
 
 Normalized event object:
 {
-  name: 'Validator building day',
+  title: "Lennon's best cuddle day",
   kind: 'SINGLE_EVENT',
-  startDate: '2026-02-02T00:00:00.000Z',
-  capacity: 1
+  startDate: '2026-12-12T00:00:00.000Z',
+  capacity: 3,
+  address: '123 front st W',
+  venueName: null,
+  ageLimit: null,
+  latitude: -1,
+  longitude: 1
 }
 
 ```
@@ -82,15 +98,30 @@ Normalized event object:
 ## Next Steps
 
 
-Extend CLI to include additional fields (location, ticket price, description)
+Extend CLI to include additional fields (added fields in base event universe graphQL schema that were considered mandatory)
 
+Phase 2: Service Layer for Universe API (GraphQL)
+
+Goal: Prepare to push normalized events to Universe without changing CLI logic.
 Connect to Universe GraphQL API to create draft events programmatically
+
+Phase 3: Goal: Separate the conversational engine from the input/output layer to make it UI-ready.
+
+Phase 4: LLM integration
+
+Goal: Use AI to guide user input or suggest defaults.
+
+Ideas:
+
+- Suggest event titles or descriptions
+- Validate ambiguous inputs
+- Auto-fill fields based on minimal input
 
 Transition CLI logic to a UI-based assistant in the future (refactor to suport a web or chat based UI)
 error handling and edge cases
 unit tests
 
-LLM integration
+
 
 License
 

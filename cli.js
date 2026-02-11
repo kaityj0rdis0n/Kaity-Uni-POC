@@ -10,14 +10,15 @@
 import readline from "readline";
 import { eventBuildConversationSteps } from "./conversation.js";
 import { normalizeEvent } from "./normalizeEvent.js";
-import { isValidDate, isRequired, isPositiveNumber } from "./validate.js";
+import { isValidDate, isRequired, isPositiveNumber,isValidCoordinate } from "./validate.js";
 
 
 // Map validator names to functions
 const validators = {
     date: isValidDate,
     required: isRequired,
-    capacity: isPositiveNumber // map capacity to positive number validator
+    capacity: isPositiveNumber, // map capacity to positive number validator
+    coordinate: isValidCoordinate // lat and long
 };
 
 // create readLine interface for CLI input

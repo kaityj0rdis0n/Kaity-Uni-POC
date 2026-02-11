@@ -15,6 +15,8 @@ export function normalizeEvent(raw) { //export makes this function available to 
         address: raw.address,
         venueName: raw.venueName || null,
         ageLimit: raw.ageLimit || null,
+        latitude: Number(raw.latitude),
+        longitude: Number(raw.longitude),
 
     }
 }
