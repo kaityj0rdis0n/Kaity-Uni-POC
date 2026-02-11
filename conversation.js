@@ -47,4 +47,24 @@ export const eventBuildConversationSteps = [
     validator: "capacity",
     errorMessage: "Capacity must be a positive number."
   }
+  {
+    field: "description",
+    question: "Provide a short description of the event:",
+    validator: "required",
+    errorMessage: "Description cannot be empty."
+},
+{
+    field: "address",
+    question: "Where is the event?",
+    validator: "required",
+    errorMessage: "Must add an associated address to the event" //did not add required validator, thinking about when people have different things like popups etc
+},
+{
+    field: "venueName",
+    question: "What is the venue name? (Optional)" //did not add required validator, thinking about when people have different things like popups etc
+},
+{
+    field: "ageLimit",
+    question: "Is there an age limit? (Optional, e.g. 18+, All Ages)" //free text input at this time
+}
 ];

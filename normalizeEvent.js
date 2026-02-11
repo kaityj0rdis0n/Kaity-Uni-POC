@@ -11,7 +11,10 @@ export function normalizeEvent(raw) { //export makes this function available to 
         ? "SINGLE_EVENT" //ternary operator, works the same as if-else
         : "RECURRING_EVENT",
         startDate: new Date(raw.date).toISOString(), //converts to usable date in a Javascript date object wiwth ISO 8601 format
-        capacity: Number(raw.capacity)
+        capacity: Number(raw.capacity),
+        address: raw.address,
+        venueName: raw.venueName || null,
+        ageLimit: raw.ageLimit || null,
 
     }
 }
