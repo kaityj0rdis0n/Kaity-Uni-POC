@@ -6,7 +6,7 @@
 
 export function normalizeEvent(raw) { //export makes this function available to other files via import, raw is an object with the user's answers from the CLI
     return { //gives back (returns) a new object with sanitized or normalized data
-        name: raw.name,
+        title: raw.name,
         kind: raw.type.toLowerCase().includes("single")
         ? "SINGLE_EVENT" //ternary operator, works the same as if-else
         : "RECURRING_EVENT",
