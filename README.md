@@ -54,6 +54,7 @@ The raw input object
 The normalized event object
 
 **Example**
+
 What is the name of your event? Lennon's best cuddle day
 Is this a single-night or a recurring event? single
 What date is the event? (YYYY-MM-DD) 2026-12-12
@@ -65,6 +66,7 @@ Is there an age limit? (Optional, e.g. 18+, All Ages)
 Enter a latitude coordinate, must be between -90 and 90 -1
 Enter a latitude coordinate, must be between -180 and 180 : 1
 
+```
 Raw input:
 {
   name: "Lennon's best cuddle day",
@@ -91,9 +93,7 @@ Normalized event object:
   latitude: -1,
   longitude: 1
 }
-
 ```
-
 
 ## Next Steps
 
