@@ -128,14 +128,9 @@ Normalized event object:
 
 
 
+### Goal: Use AI to guide user input or suggest defaults.
 
-
-
-
-
-Goal: Use AI to guide user input or suggest defaults.
-
-Ideas:
+## Ideas:
 
 - Suggest event titles or descriptions
 - Validate ambiguous inputs
@@ -146,6 +141,7 @@ error handling and edge cases
 unit tests
 
 
+---
 
 License
 
