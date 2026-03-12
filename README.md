@@ -62,6 +62,7 @@ At the end, the CLI will display:
 
 **Example**
 
+```
 What is the name of your event? Lennon's best cuddle day
 Is this a single-night or a recurring event? single
 What date is the event? (YYYY-MM-DD) 2026-12-12
@@ -72,7 +73,7 @@ What is the venue name? (Optional)
 Is there an age limit? (Optional, e.g. 18+, All Ages) 
 Enter a latitude coordinate, must be between -90 and 90: -1
 Enter a longitude coordinate, must be between -180 and 180: 1
-
+```
 ```
 Raw input:
 {
@@ -150,7 +151,7 @@ ISC
 
 ---
 
-You just need to:
+How to use:
 
 1. Save this as `README.md` in your project root  
 2. Stage, commit, and push it:
@@ -159,3 +160,58 @@ You just need to:
 git add README.md
 git commit -m "Add README with CLI instructions"
 git push
+```
+
+---
+
+## Phase 2 next steps: Pushing Draft Events to Universe
+
+March 12 2026 added a service layer in universeService.js to allow the CLI to create draft events in Universe using the GraphQL API.
+
+1. Set Universe API Token
+For security, store Universe API token as an environment variable:
+
+Bash
+```
+export UNIVERSE_API_TOKEN="your_real_api_token_here"
+```
+
+Powershell
+```
+
+setx UNIVERSE_API_TOKEN "your_real_api_token_here"
+```
+
+
+2. Ensure universeService.js is using `cross-fetch`
+
+cross-fetch provides a consistent fetch API across Node.js and browsers:
+
+```import fetch from "cross-fetch";```
+
+3. Creating a Draft Event
+
+After completing the CLI questions, the normalized event object is automatically passed to the service layer:
+
+```import { createDraftEvent } from "./universeService.js";
+
+const normalized = normalizeEvent(answers);
+
+try {
+  const createdEvent = await createDraftEvent(normalized);
+  console.log("Created event in Universe:", createdEvent);
+} catch (err) {
+  console.error("Failed to create event:", err);
+}
+```
+### Notes:
+
+- Optional fields (like venueName, ageLimit) will be sent as null if not provided.
+- If the API returns errors, they are logged to the console.
+- The CLI will attempt to push the event only after all questions are answered and validated.
+
+### Phase 2 Visual Flow
+
+User → CLI prompts → answers object → normalizeEvent() → normalized object → createDraftEvent() → Universe API
+
+
