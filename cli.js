@@ -10,15 +10,20 @@
 import readline from "readline";
 import { eventBuildConversationSteps } from "./conversation.js";
 import { normalizeEvent } from "./normalizeEvent.js";
-import { isValidDate, isRequired, isPositiveNumber,isValidCoordinate } from "./validate.js";
-
+import { isValidDate, isRequired, isPositiveNumber,isValidLatitude,isValidLongitude} from "./validate.js";
+import { createDraftEvent } from "./universeService.js";
 
 // Map validator names to functions
+// This allows the CLI to dynamically run validators for each question
+// these just use functions directly because they take a single input and return  "true/false"
 const validators = {
-    date: isValidDate,
-    required: isRequired,
-    capacity: isPositiveNumber, // map capacity to positive number validator
-    coordinate: isValidCoordinate // lat and long
+    date: isValidDate,           // checks format and ensures today or future
+    required: isRequired,        // checks input is not empty
+    capacity: isPositiveNumber,  // checks capacity is positive integer
+    
+    // Arrow wrappers allow us to pass extra info to the core validator
+    latitude: (input) => isValidLatitude(input, "Latitude"),   // checks latitude range -90 to 90
+    longitude: (input) => isValidLongitude(input, "Longitude") // checks longitude range -180 to 180
 };
 
 // create readLine interface for CLI input
@@ -31,7 +36,7 @@ const answers = {}; // stores answers in an object by field name
 let currentStep = 0;
 
 // main function to ask next question
-const askNext = () => { // JavaScript arrow function called askNext that picks current question from eventBuildConversationSteps, and calls questions until the last step and then closes the CLI
+const askNext = async () => { // JavaScript arrow function called askNext that picks current question from eventBuildConversationSteps, and calls questions until the last step and then closes the CLI
     const step = eventBuildConversationSteps[currentStep];
 
     // If no more steps (all q asked) normalize answers and close
@@ -42,6 +47,14 @@ const askNext = () => { // JavaScript arrow function called askNext that picks c
         const normalized = normalizeEvent(answers);
         console.log("\nNormalized event object:");
         console.log(normalized);
+
+    // updates for Phase 2" create draft event in Universe
+    try {
+        const createdEvent = await createDraftEvent(normalized);
+        console.log("Created event in Universe:", createdEvent);
+    } catch (err) {
+        console.error("Failed to create event:", err);
+    }
 
         rl.close();
         return;

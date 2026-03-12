@@ -12,9 +12,7 @@
 //   - validator: optional validator name from validate.js
 //   - errorMessage: optional custom message on invalid input
 
-//Future-proof
-
-//Adding a new step? Just add a new object
+//Future-proof: adding a new step? Just add a new object
 
 //Do not change CLI.js
 
@@ -34,6 +32,20 @@ export const eventBuildConversationSteps = [
     errorMessage: "Please type 'single' or 'recurring'."
   },
   {
+    id: "venue_name",
+    question: "Where is the event happening (venue name)?",
+    field: "venueName",
+    validator: "required", // still optional in GraphQL, but CLI enforces a value
+    errorMessage: "Venue name is required."
+  },
+  {
+    id: "address",
+    field: "address",
+    question: "What is the street address of the event?",
+    validator: "required", // still optional in GraphQL, but CLI enforces a value
+    errorMessage: "Must add an associated address to the event"
+  },
+  {
     id: "event_date",
     field: "date",             // maps to normalizeEvent.js startDate
     question: "What date is the event? (YYYY-MM-DD)",
@@ -47,36 +59,30 @@ export const eventBuildConversationSteps = [
     validator: "capacity",
     errorMessage: "Capacity must be a positive number."
   },
-{
+  {
+    id: "description",
     field: "description",
     question: "Provide a short description of the event:",
     validator: "required",
     errorMessage: "Description cannot be empty."
-},
-{
-    field: "address",
-    question: "Where is the event?",
-    validator: "required",
-    errorMessage: "Must add an associated address to the event" //did not add required validator,(also not in graphQL mandatory) thinking about when people have different things like popups etc
-},
-{
-    field: "venueName",
-    question: "What is the venue name? (Optional)" //did not add required validator(also not in graphhQL mandatory), thinking about when people have different things like popups etc
-},
-{
+  },
+  {
+    id: "age_limit",
     field: "ageLimit",
-    question: "Is there an age limit? (Optional, e.g. 18+, All Ages)" //free text input at this time
-},
-{
+    question: "Is there an age limit? (Optional, e.g. 18+, All Ages)" // free text input at this time
+  },
+  {
+    id: "latitude",
     question: "Enter a latitude coordinate, must be between -90 and 90",
     field: "latitude",
-    validator: "coordinate",
+    validator: "latitude",           // matches validators.latitude in cli.js
     errorMessage: "Latitude must be a number between -90 and 90"
-},
-{
-    question: "Enter a latitude coordinate, must be between -180 and 180 :",
+  },
+  {
+    id: "longitude",
+    question: "Enter a longitude coordinate, must be between -180 and 180",
     field: "longitude",
-    validator: "coordinate",
+    validator: "longitude",          // matches validators.longitude in cli.js
     errorMessage: "Longitude must be a number between -180 and 180"
-}
+  }
 ]

@@ -35,8 +35,16 @@ export function isPositiveNumber(input) {
     const num = Number(input);
     return !isNaN(num) && Number.isInteger(num) && num > 0;
 }
-// Check input is a valid latitude or longitude number. Chose lazy validation, would rather do this through a map api later
-export function isValidCoordinate(input) {
+// Check if latitude or longitude is a valid number
+// Latitude must be between -90 and 90
+// Longitude must be between -180 and 180
+// validate.js
+export function isValidLatitude(input) {
+    const num = Number(input);
+    return !isNaN(num) && num >= -90 && num <= 90;
+}
+
+export function isValidLongitude(input) {
     const num = Number(input);
     return !isNaN(num) && num >= -180 && num <= 180;
 }
