@@ -19,7 +19,7 @@ Each file has a single responsibility:
 | `universeService.js` | GraphQL API calls to Universe |
 
 **Flow:**
-`cli.js` (collects input) → `conversationOrchestrator.js` (orchestrates) → `normalizeEvent.js` (transforms) → `universeService.js` (submits)
+`User → cli.js (readline) → conversationOrchestrator.js (steps + validation) → normalizeEvent.js (transform) → universeService.js (GraphQL) → Universe API`
 
 ---
 
