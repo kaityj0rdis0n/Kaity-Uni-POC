@@ -116,6 +116,20 @@ Normalized event object:
 | Phase 3 | 🔄 In progress | Decouple for UI — CLI adapter pattern introduced |
 | Phase 4 | Not started | LLM-assisted input (suggest titles, auto-fill fields, validate ambiguous input) |
 
+### Phase 4: LLM Integration
+
+Phase 4 will add Claude API calls inside the orchestrator to assist with input — for example, suggesting an event title, interpreting a vague description, or auto-filling fields. The orchestrator's architecture supports this cleanly: an LLM call would be a discrete step in the flow, swappable or configurable without touching the rest of the code.
+
+**Why Claude API and not another LLM?**
+For this POC, the Claude API is the right choice — it's pay-as-you-go with no meaningful cost at POC scale, and it fits naturally into the existing architecture.
+
+**If this were a real B2B product, additional considerations would apply:**
+
+- **Cost at scale** — API costs add up with real user volume; LLM calls should be deliberate and limited to where they add genuine value
+- **Data privacy** — B2B clients care about whether their data is sent to a third-party API; vendor data handling policies would need to be reviewed and disclosed
+- **Latency** — LLM calls add response time, which matters in a user-facing flow
+- **Vendor lock-in** — building against one LLM API ties you to their pricing and uptime; the orchestrator pattern keeps this risk contained since the LLM call is isolated in one place
+
 ---
 
 ## Changelog
