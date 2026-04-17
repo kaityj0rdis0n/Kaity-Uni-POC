@@ -14,7 +14,7 @@
 
 //Future-proof: adding a new step? Just add a new object
 
-//Do not change CLI.js
+//Do not put CLI or UI logic here — this file is the source of truth for questions only
 
 export const eventBuildConversationSteps = [
   {

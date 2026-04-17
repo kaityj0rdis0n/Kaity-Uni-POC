@@ -1,95 +1,25 @@
-//This is the main entry point for the POC's CLI (Command line interface) assistant.
-//Here, we can simulate asking an event builder questions, collecting answers, and displaying results
-//uses eventBuildConversationSteps to know what to ask
-//uses normalizeEvent to transform answers
-// this file should focus on asking questions and handling flow, no business rules
-
-//Later, if we build a web UI or chat interface, this can be repurposed without messing with the conversation or normalization logic
-
+// The CLI adapter — responsible only for terminal input/output.
+// All conversation logic lives in conversationOrchestrator.js.
+// To swap in a UI later, replace this file with a UI adapter that
+// provides its own askQuestion and passes it to runConversation().
 
 import readline from "readline";
-import { eventBuildConversationSteps } from "./conversation.js";
-import { normalizeEvent } from "./normalizeEvent.js";
-import { isValidDate, isRequired, isPositiveNumber,isValidLatitude,isValidLongitude} from "./validate.js";
-import { createDraftEvent } from "./universeService.js";
+import { runConversation } from "./conversationOrchestrator.js";
 
-// Map validator names to functions
-// This allows the CLI to dynamically run validators for each question
-// these just use functions directly because they take a single input and return  "true/false"
-const validators = {
-    date: isValidDate,           // checks format and ensures today or future
-    required: isRequired,        // checks input is not empty
-    capacity: isPositiveNumber,  // checks capacity is positive integer
-    
-    // Arrow wrappers allow us to pass extra info to the core validator
-    latitude: (input) => isValidLatitude(input, "Latitude"),   // checks latitude range -90 to 90
-    longitude: (input) => isValidLongitude(input, "Longitude") // checks longitude range -180 to 180
-};
-
-// create readLine interface for CLI input
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
 
-const answers = {}; // stores answers in an object by field name
-let currentStep = 0;
-
-// main function to ask next question
-const askNext = async () => { // JavaScript arrow function called askNext that picks current question from eventBuildConversationSteps, and calls questions until the last step and then closes the CLI
-    const step = eventBuildConversationSteps[currentStep];
-
-    // If no more steps (all q asked) normalize answers and close
-    if (!step) {
-        console.log("\nRaw input:");
-        console.log(answers);
-
-        const normalized = normalizeEvent(answers);
-        console.log("\nNormalized event object:");
-        console.log(normalized);
-
-    // updates for Phase 2" create draft event in Universe
-    try {
-        const createdEvent = await createDraftEvent(normalized);
-        console.log("Created event in Universe:", createdEvent);
-    } catch (err) {
-        console.error("Failed to create event:", err);
-    }
-
-        rl.close();
-        return;
-    }
-
-    // ask current question
-    rl.question(step.question + " ", (input) => {
-        const trimmedInput = input.trim(); // remove trailing or leading whitespace
-
-        // Generic validation hook: run validator dynamically if specified
-        if (step.validator) {
-            const validateFn = validators[step.validator];
-
-            if (!validateFn) {
-                throw new Error(`Validator "${step.validator}" is not defined`);
-            }
-
-            // run validator, if invalid, re-ask the same question
-            if (!validateFn(trimmedInput)) {
-                console.log(step.errorMessage || "Oops! Invalid input please try again");
-                askNext(); // re-ask same question
-                return; // stops execution of this callback safely in ESM
-            }
-        }
-
-        // store answer and move to next step
-        answers[step.field] = trimmedInput;
-        currentStep++;
-        askNext();
+// Wraps readline's callback-based question() in a Promise so the
+// orchestrator can use async/await instead of nested callbacks
+function askQuestion(prompt) {
+    return new Promise((resolve) => {
+        rl.question(prompt, (input) => resolve(input));
     });
-};
+}
 
-// start CLI
-askNext();
-
-
-
-   
+// Start the conversation, then close the terminal input stream when done
+runConversation(askQuestion)
+    .catch((err) => console.error("Event creation failed:", err))
+    .finally(() => rl.close());
